@@ -1,5 +1,4 @@
-import dotenv from 'dotenv'
-dotenv.config();
+require('dotenv').config();
 
 let express = require('express');
 let path = require('path');
