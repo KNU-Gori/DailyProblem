@@ -1,0 +1,38 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
+
+* {
+  font-family: 'Spoqa Han Sans', sans-serif;
+  /*font-weight: 300;*/
+  /* 100 300 400 700 */
+}
+
+body {
+  margin: 20px auto;
+  padding: 0 20px;
+  max-width: 1200px;
+  font-weight: 400;
+}
+
+h1, h2 {
+  font-weight: 400;
+}
+
+h1, h2, h3, h4, h5 {
+  margin: 20px 0;
+}
+
+a {
+  color: #00B7FF;
+}
+
+section {
+  margin: 10px 10px 50px 10px;
+}
+
+form {
+  margin: 0 10px;
+}
+
+form > fieldset > label {
+  margin: 0 0 10px 0;
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <title>DailyProblem @ KNU Gori</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+<body>
+    <header>
+        <h1>DailyProblem @ KNU Gori</h1>
+    </header>
+
+    <section>
+        <h2>계정</h2>
+        <% if (user) { %>
+            <p>
+                <strong><%=user.name%> (<%=user.email%>)</strong>
+                님으로 로그인됨
+            </p>
+            <a href="/auth/logout">로그아웃</a>
+        <% } else { %>
+            <p>추천 문제를 등록하기 위해서는 <strong>KNU Gori 슬랙</strong>에 가입된 계정으로 로그인해야 합니다.</p>
+            <a href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.avatar&client_id=329915389191.1054256474256">
+                <img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" />
+            </a>
+        <% } %>
+    </section>
+
+    <% if (user) { %>
+        <section>
+            <h2>문제 추천하기</h2>
+            <form class="pure-form pure-form-stacked">
+                <fieldset>
+                    <label for="problem">문제 번호</label>
+                    <input id="problem" type="text" placeholder="문제 번호">
+                    <span class="pure-form-message">현재 Baekjoon Online Judge 문제만 지원합니다.</span>
+
+                    <label for="comment">의견</label>
+                    <textarea id="comment" placeholder="의견"></textarea>
+
+                    <label for="submitter">제출자 이름</label>
+                    <input id="submitter" type="text" placeholder="제출자 이름">
+
+                    <label for="anon" class="pure-checkbox">
+                        <input id="anon" type="checkbox"> 익명으로 추천
+                    </label>
+
+                    <button type="submit" class="pure-button pure-button-primary">제출!</button>
+                </fieldset>
+            </form>
+        </section>
+    <% } %>
+
+    <section>
+        <h2>현재 등록된 추천 문제</h2>
+        <table class="pure-table pure-table-horizontal">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>123123</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>asdf</td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>asdf</td>
+            </tr>
+
+            <tr>
+                <td>3</td>
+                <td>asdf</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p>이전 기록들 보기:</p>
+    </section>
+</body>
+</html>
