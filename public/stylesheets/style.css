@@ -8,17 +8,17 @@
 
 body {
   margin: 20px auto;
-  padding: 0 20px;
   max-width: 1200px;
   font-weight: 400;
+  background-color: #fdfdfd;
 }
 
 h1, h2 {
-  font-weight: 400;
+  font-weight: 700;
 }
 
 h1, h2, h3, h4, h5 {
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
 a {
@@ -26,13 +26,19 @@ a {
 }
 
 section {
-  margin: 10px 10px 50px 10px;
+  margin: 20px 10px;
+  padding: 10px 20px;
+
+  background-color: #ffffff;
+  border: .1px solid #d7d7d7;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-form {
+#recommend_form {
   margin: 0 10px;
 }
 
-form > fieldset > label {
-  margin: 0 0 10px 0;
+#comment {
+  width: 350px;
+  height: 175px;
 }
