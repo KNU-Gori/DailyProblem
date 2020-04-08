@@ -1,4 +1,4 @@
-require('dotenv').config();
+let dotenv = require('dotenv');
 
 let express = require('express');
 let path = require('path');
@@ -10,6 +10,8 @@ let session = require('express-session');
 let indexRouter = require('./routes/index');
 let authRouter = require('./routes/auth');
 let validationRouter = require('./routes/validation');
+
+dotenv.config();
 
 let app = express();
 
