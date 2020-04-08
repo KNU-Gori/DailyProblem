@@ -33,20 +33,19 @@
     <% if (user) { %>
         <section>
             <h2>문제 추천하기</h2>
-            <form class="pure-form pure-form-stacked">
+            <form id="recommend_form" class="pure-form pure-form-stacked">
                 <fieldset>
-                    <label for="problem">문제 번호</label>
-                    <input id="problem" type="text" placeholder="문제 번호">
-                    <span class="pure-form-message">현재 Baekjoon Online Judge 문제만 지원합니다.</span>
+                    <label for="problem">BOJ 문제 번호</label>
+                    <input id="problem" name="problem" type="text" placeholder="BOJ 문제 번호">
 
                     <label for="comment">의견</label>
-                    <textarea id="comment" placeholder="의견"></textarea>
+                    <textarea id="comment" name="comment" placeholder="의견"></textarea>
 
                     <label for="submitter">제출자 이름</label>
-                    <input id="submitter" type="text" placeholder="제출자 이름">
+                    <input id="submitter" name="submitter" type="text" disabled>
 
-                    <label for="anon" class="pure-checkbox">
-                        <input id="anon" type="checkbox"> 익명으로 추천
+                    <label for="isAnon" class="pure-checkbox">
+                        <input id="isAnon" name="isAnon" type="checkbox"> 익명으로 추천
                     </label>
 
                     <button type="submit" class="pure-button pure-button-primary">제출!</button>
@@ -85,5 +84,42 @@
 
         <p>이전 기록들 보기:</p>
     </section>
+
+
+    <% if (user) { %>
+        <script>
+
+            const formSubmit = (e) => {
+              e.preventDefault();
+
+              console.log('formSubmit() called');
+
+              const form = document.getElementById('recommend_form');
+              const formData = new FormData(form);
+
+              let object = {};
+              formData.forEach((value, key) => {object[key] = value});
+              let json = JSON.stringify(object);
+              console.log(json);
+
+              fetch('/validation/boj', {
+                method: 'POST',
+                body: json,
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              }).then((res) => {
+                if (res.status === 200 || res.status === 201) {
+                  res.json().then(json => console.log(json));
+                } else {
+                  console.error(res.statusText);
+                }
+              }).catch(err => console.error(err));
+            };
+
+            document.getElementById('recommend_form').addEventListener('submit', formSubmit);
+
+        </script>
+    <% } %>
 </body>
 </html>

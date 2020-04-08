@@ -36,7 +36,7 @@ router.get('/redirect', (req, RES, next) => {
 
         } else {
           console.log('OAuth api error!');
-          RES.redirect('/');
+          RES.redirect('/');  // 각 로직 블록마다 res.redirect를 정상적으로 해줘야 세션이 저장됨
         }
 
         RES.redirect('/');

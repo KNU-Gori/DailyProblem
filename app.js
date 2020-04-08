@@ -9,6 +9,7 @@ let session = require('express-session');
 
 let indexRouter = require('./routes/index');
 let authRouter = require('./routes/auth');
+let validationRouter = require('./routes/validation');
 
 let app = express();
 
@@ -28,5 +29,6 @@ app.use(session({
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
+app.use('/validation', validationRouter);
 
 module.exports = app;
