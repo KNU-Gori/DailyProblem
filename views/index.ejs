@@ -33,6 +33,9 @@
     <% if (user) { %>
         <section>
             <h2>문제 추천하기</h2>
+
+            <p id="message"></p>
+
             <form id="recommend_form" class="pure-form pure-form-stacked">
                 <fieldset>
                     <label for="problem">BOJ 문제 번호</label>
@@ -89,9 +92,27 @@
     <% if (user) { %>
         <script>
 
-            const formSubmit = (e) => {
-              e.preventDefault();
+            const sendValidation = async (body) => {
+              try {
+                const response = await fetch('/validation/boj', {
+                  method: 'POST',
+                  body: body,
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                });
+                return response.json();
+              } catch (e) {
+                console.error(e);
+                return {
+                  'status': 'error',
+                  'message': 'sendValidation() error!',
+                };
+              }
+            }
 
+            const formSubmit = async (e) => {
+              e.preventDefault();
               console.log('formSubmit() called');
 
               const form = document.getElementById('recommend_form');
@@ -102,19 +123,21 @@
               let json = JSON.stringify(object);
               console.log(json);
 
-              fetch('/validation/boj', {
-                method: 'POST',
-                body: json,
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-              }).then((res) => {
-                if (res.status === 200 || res.status === 201) {
-                  res.json().then(json => console.log(json));
-                } else {
-                  console.error(res.statusText);
-                }
-              }).catch(err => console.error(err));
+              const res = await sendValidation(json);
+              console.log(res);
+
+              let message = document.getElementById('message');
+              message.style.display = 'block';  // reveals
+
+              if (res.status === 'ok') {
+                message.className = 'success';
+                message.innerText = res.message;
+                // TODO: OK시 폼 초기화 등
+
+              } else if (res.status === 'error') {
+                message.className = 'failure';
+                message.innerText = res.message;
+              }
             };
 
             document.getElementById('recommend_form').addEventListener('submit', formSubmit);

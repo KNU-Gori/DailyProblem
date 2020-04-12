@@ -8,6 +8,7 @@
 
 body {
   margin: 20px auto;
+  padding: 0 20px;
   max-width: 1200px;
   font-weight: 400;
   background-color: #fdfdfd;
@@ -32,6 +33,21 @@ section {
   background-color: #ffffff;
   border: .1px solid #d7d7d7;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+#message {
+  padding: 10px;
+  border-radius: 3px;
+  color: #fff;
+  display: none;
+}
+
+.success {
+  background: #1aa464;
+}
+
+.failure {
+  background: #d64e5a;
 }
 
 #recommend_form {
