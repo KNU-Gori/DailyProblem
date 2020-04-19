@@ -44,9 +44,6 @@
                     <label for="comment">의견</label>
                     <textarea id="comment" name="comment" placeholder="의견"></textarea>
 
-                    <label for="submitter">제출자 이름</label>
-                    <input id="submitter" name="submitter" type="text" disabled>
-
                     <label for="isAnon" class="pure-checkbox">
                         <input id="isAnon" name="isAnon" type="checkbox"> 익명으로 추천
                     </label>
@@ -58,30 +55,26 @@
     <% } %>
 
     <section>
-        <h2>현재 등록된 추천 문제</h2>
-        <table class="pure-table pure-table-horizontal">
+        <h2>현재 서버 Queue에 등록된 추천 문제</h2>
+        <table id="recommendations" class="pure-table pure-table-horizontal">
             <thead>
             <tr>
-                <th>#</th>
-                <th>123123</th>
+                <th>problem_id</th>
+                <th>title</th>
+                <th>comment</th>
+                <th>datetime</th>
             </tr>
             </thead>
 
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>asdf</td>
-            </tr>
-
-            <tr>
-                <td>2</td>
-                <td>asdf</td>
-            </tr>
-
-            <tr>
-                <td>3</td>
-                <td>asdf</td>
-            </tr>
+            <% recommendations.forEach((row) => { %>
+                <tr>
+                    <td><%=row.problem_id%></td>
+                    <td><%=row.title%></td>
+                    <td><%=row.comment%></td>
+                    <td><%=new Date(row.datetime._seconds * 1000)%></td>
+                </tr>
+            <% }) %>
             </tbody>
         </table>
 
@@ -115,17 +108,22 @@
               e.preventDefault();
               console.log('formSubmit() called');
 
+              // FormData와 session으로 sendValidation할 object 구성
               const form = document.getElementById('recommend_form');
               const formData = new FormData(form);
 
               let object = {};
               formData.forEach((value, key) => {object[key] = value});
+              object.author = '<%=user.name%>';
+              object.author_email = '<%=user.email%>';
+
+              // JSON stringify and sendValidation
               let json = JSON.stringify(object);
               console.log(json);
-
               const res = await sendValidation(json);
               console.log(res);
 
+              // when server operation is finished, do client operation
               let message = document.getElementById('message');
               message.style.display = 'block';  // reveals
 

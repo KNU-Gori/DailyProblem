@@ -4,6 +4,8 @@ let debug = require('debug')('dailyproblem:validation');
 let debug_BOJ = require('debug')('dailyproblem:validation:validateBOJ');
 let axios = require('axios');
 let cheerio = require('cheerio');
+let Firestore = require('@google-cloud/firestore');
+let admin = require('firebase-admin');
 
 const wrapper = asyncFn => {
   return (async (req, res, next) => {
@@ -29,6 +31,7 @@ const validateBOJ = async (problem) => {
   debug_BOJ('Send GET to: %s', target_url);
 
   let result = {};
+  result.problem = problem;
 
   await axios.get(target_url)
     .then((res) => {
@@ -78,16 +81,27 @@ router.post('/boj', wrapper(async (req, res, next) => {
     // v_res.problem, v_res.title
 
     // db operation here
+    const db = new Firestore({
+      projectId: 'dailyproblem-gori',
+    });
 
-
-
-
-
-
+    let addDoc = await db.collection('recommendations').add({
+      // TODO: More fields? status?
+      problem_id: v_res.problem,
+      title: v_res.title,
+      comment: body.comment,
+      author: body.author,
+      author_email: body.author_email,
+      is_anon: (body.isAnon === 'on'),
+      datetime: admin.firestore.FieldValue.serverTimestamp(),
+    }).then((ref) => {
+      debug('Success on DB addDoc: %o', ref);
+    }).catch((err) => {
+      debug('Error on DB addDoc: %s', err);
+    });
 
     result.status = 'ok';
-    result.message = '추천 문제가 성공적으로 등록되었습니다.';
-
+    result.message = 'Queue에 추천 문제가 성공적으로 등록되었습니다.';
   } else if (v_res.status === 'notfound') {
     // 해당 번호의 문제가 없음
     result.status = 'error';
