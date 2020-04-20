@@ -44,10 +44,12 @@
                     <label for="comment">의견</label>
                     <textarea id="comment" name="comment" placeholder="의견"></textarea>
 
+                    <!--
                     <label for="isAnon" class="pure-checkbox">
                         <input id="isAnon" name="isAnon" type="checkbox"> 익명으로 추천
                     </label>
-
+                    -->
+                    <br/>
                     <button type="submit" class="pure-button pure-button-primary">제출!</button>
                 </fieldset>
             </form>
@@ -55,7 +57,36 @@
     <% } %>
 
     <section>
+        <h2>내가 추천한 문제들</h2>
+        <p>수정, 삭제는 구현이 귀찮아서 그냥 회장한테 따로 말씀해주세요</p>
+        <table id="recommendations" class="pure-table pure-table-horizontal">
+            <thead>
+            <tr>
+                <th>문제 번호</th>
+                <th>제목</th>
+                <th>의견</th>
+                <th>제출일</th>
+                <th>상태</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <% /* recommendations.forEach((row) => { %>
+                <tr>
+                    <td><%=row.problem_id%></td>
+                    <td><%=row.title%></td>
+                    <td><%=row.comment%></td>
+                    <td><%=new Date(row.datetime._seconds * 1000)%></td>
+                </tr>
+            <% }) */ %>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
         <h2>현재 서버 Queue에 등록된 추천 문제</h2>
+        <p>비공개 상태입니다.</p>
+        <!--
         <table id="recommendations" class="pure-table pure-table-horizontal">
             <thead>
             <tr>
@@ -67,18 +98,17 @@
             </thead>
 
             <tbody>
-            <% recommendations.forEach((row) => { %>
+            <% /* recommendations.forEach((row) => { %>
                 <tr>
                     <td><%=row.problem_id%></td>
                     <td><%=row.title%></td>
                     <td><%=row.comment%></td>
                     <td><%=new Date(row.datetime._seconds * 1000)%></td>
                 </tr>
-            <% }) %>
+            <% }) */ %>
             </tbody>
         </table>
-
-        <p>이전 기록들 보기:</p>
+        -->
     </section>
 
 

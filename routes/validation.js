@@ -80,19 +80,23 @@ router.post('/boj', wrapper(async (req, res, next) => {
     // 문제 검증 확인됨
     // v_res.problem, v_res.title
 
+    // TODO: Separate as db_operation.js
     // db operation here
     const db = new Firestore({
       projectId: 'dailyproblem-gori',
     });
 
+    // TODO: One recommendation per one day
+
     let addDoc = await db.collection('recommendations').add({
-      // TODO: More fields? status?
       problem_id: v_res.problem,
       title: v_res.title,
       comment: body.comment,
       author: body.author,
       author_email: body.author_email,
-      is_anon: (body.isAnon === 'on'),
+      // is_anon: (body.isAnon === 'on'),
+      is_anon: false,
+      status: 0,  // 0: 처리 전, 1: 처리 완료, -1: 반려
       datetime: admin.firestore.FieldValue.serverTimestamp(),
     }).then((ref) => {
       debug('Success on DB addDoc: %o', ref);
@@ -101,7 +105,7 @@ router.post('/boj', wrapper(async (req, res, next) => {
     });
 
     result.status = 'ok';
-    result.message = 'Queue에 추천 문제가 성공적으로 등록되었습니다.';
+    result.message = '서버 Queue에 추천 문제가 성공적으로 등록되었습니다.';
   } else if (v_res.status === 'notfound') {
     // 해당 번호의 문제가 없음
     result.status = 'error';

@@ -21,6 +21,7 @@ const wrapper = asyncFn => {
 router.get('/', wrapper(async (req, res, next) => {
   debug('%o', req.session);
 
+  /*
   let recommendations = [];
   await db.collection('recommendations')
     .orderBy("datetime", "desc")
@@ -35,7 +36,7 @@ router.get('/', wrapper(async (req, res, next) => {
     .catch((err) => {
       debug('Error getting docs: %s', err);
     });
-
+  */
   // TODO: User Experience상 recommendations 표 가져오는 부분을 클라이언트로 빼야 하는가?
   debug('Recommendations: %o', recommendations);
 

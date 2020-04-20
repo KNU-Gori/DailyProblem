@@ -10,6 +10,7 @@ let session = require('express-session');
 let indexRouter = require('./routes/index');
 let authRouter = require('./routes/auth');
 let validationRouter = require('./routes/validation');
+let dbRouter = require('./routes/db');
 
 dotenv.config();
 
@@ -32,5 +33,6 @@ app.use(session({
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/validation', validationRouter);
+app.use('/db', dbRouter);
 
 module.exports = app;
