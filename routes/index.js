@@ -38,11 +38,10 @@ router.get('/', wrapper(async (req, res, next) => {
     });
   */
   // TODO: User Experience상 recommendations 표 가져오는 부분을 클라이언트로 빼야 하는가?
-  debug('Recommendations: %o', recommendations);
+  // debug('Recommendations: %o', recommendations);
 
   res.render('index', {
     user: req.session.user,
-    recommendations: recommendations,
   });
 }));
 

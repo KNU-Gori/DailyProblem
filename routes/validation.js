@@ -78,17 +78,14 @@ router.post('/boj', wrapper(async (req, res, next) => {
 
   if (v_res.status === 'ok') {
     // 문제 검증 확인됨
-    // v_res.problem, v_res.title
 
+    debug('Send /db/create request');
+    // TODO: Session validation must be operated here
     // TODO: Separate as db_operation.js
-    // db operation here
-    const db = new Firestore({
-      projectId: 'dailyproblem-gori',
-    });
+    // TODO: Separate as module, not route
 
-    // TODO: One recommendation per one day
-
-    let addDoc = await db.collection('recommendations').add({
+    /*
+    await axios.post('/db/create', {
       problem_id: v_res.problem,
       title: v_res.title,
       comment: body.comment,
@@ -97,12 +94,30 @@ router.post('/boj', wrapper(async (req, res, next) => {
       // is_anon: (body.isAnon === 'on'),
       is_anon: false,
       status: 0,  // 0: 처리 전, 1: 처리 완료, -1: 반려
-      datetime: admin.firestore.FieldValue.serverTimestamp(),
-    }).then((ref) => {
-      debug('Success on DB addDoc: %o', ref);
-    }).catch((err) => {
-      debug('Error on DB addDoc: %s', err);
-    });
+    })
+      .then((res) => {
+        debug(res);
+        console.log(res);
+
+
+      })
+      .catch((err) => {
+        console.log(err);
+
+
+
+      });
+    */
+
+
+
+
+
+
+
+
+
+
 
     result.status = 'ok';
     result.message = '서버 Queue에 추천 문제가 성공적으로 등록되었습니다.';
