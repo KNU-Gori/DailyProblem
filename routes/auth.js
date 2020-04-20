@@ -32,7 +32,9 @@ router.get('/redirect', (req, RES, next) => {
         if (body.ok === true) {
           req.session.user = {
             name: body.user.name,
-            email: body.user.email
+            email: body.user.email,
+            access_token: body.access_token,
+            code: CODE,
           };
           debug_redirect('Stored to session: sess.user = %o', req.session.user);
           debug_redirect('Now our session is: %O', req.session);

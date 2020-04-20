@@ -7,6 +7,10 @@ let cheerio = require('cheerio');
 let Firestore = require('@google-cloud/firestore');
 let admin = require('firebase-admin');
 
+const db = new Firestore({
+  projectId: process.env.GOOGLE_PROJECT_ID,
+});
+
 const wrapper = asyncFn => {
   return (async (req, res, next) => {
     try {
@@ -83,6 +87,7 @@ router.post('/boj', wrapper(async (req, res, next) => {
     // TODO: Session validation must be operated here
     // TODO: Separate as db_operation.js
     // TODO: Separate as module, not route
+    // TODO: How to?
 
     /*
     await axios.post('/db/create', {
@@ -98,26 +103,31 @@ router.post('/boj', wrapper(async (req, res, next) => {
       .then((res) => {
         debug(res);
         console.log(res);
-
-
       })
       .catch((err) => {
         console.log(err);
-
-
-
       });
     */
 
+    // TODO: One recommendation per one day
 
-
-
-
-
-
-
-
-
+    let addDoc = await db.collection('recommendations').add({
+      problem_id: v_res.problem,
+      title: v_res.title,
+      comment: body.comment,
+      author: body.author,
+      author_email: body.author_email,
+      // is_anon: (body.isAnon === 'on'),
+      is_anon: false,
+      status: 0,
+      datetime: admin.firestore.FieldValue.serverTimestamp(),
+    }).then((ref) => {
+      debug('Success on DB addDoc: %o', ref);
+      result.status = 'ok';
+    }).catch((err) => {
+      debug('Error on DB addDoc: %s', err);
+      result.status = 'error';
+    });
 
     result.status = 'ok';
     result.message = '서버 Queue에 추천 문제가 성공적으로 등록되었습니다.';

@@ -15,6 +15,12 @@
     </header>
 
     <section>
+        <h2>무슨 서비스인가요?</h2>
+        <p>Gori 회원들이 추천한 문제들이 매일 오전 9시에 Gori Slack의 #dailyproblem에 올라옵니다!</p>
+        <p>문제 추천은 Gori 회원이라면 누구나 가능합니다. 추천 문제 개수는 1일 1개로 제한됩니다.</p>
+    </section>
+
+    <section>
         <h2>계정</h2>
         <% if (user) { %>
             <p>
@@ -58,7 +64,8 @@
 
     <section>
         <h2>내가 추천한 문제들</h2>
-        <p>수정, 삭제는 구현이 귀찮아서 그냥 회장한테 따로 말씀해주세요</p>
+        <p>구현 중</p>
+        <!--
         <table id="recommendations" class="pure-table pure-table-horizontal">
             <thead>
             <tr>
@@ -81,11 +88,12 @@
             <% }) */ %>
             </tbody>
         </table>
+        -->
     </section>
 
     <section>
         <h2>현재 서버 Queue에 등록된 추천 문제</h2>
-        <p>비공개 상태입니다.</p>
+        <p>구현 중</p>
         <!--
         <table id="recommendations" class="pure-table pure-table-horizontal">
             <thead>
@@ -170,6 +178,10 @@
 
             document.getElementById('recommend_form').addEventListener('submit', formSubmit);
 
+        </script>
+
+        <script>
+            // FIXME
         </script>
     <% } %>
 </body>
